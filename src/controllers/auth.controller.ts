@@ -23,7 +23,7 @@ class AuthController {
 			res.setHeader("Set-Cookie", [cookie]);
 			res
 				.status(StatusCodes.CREATED)
-				.json({ data: { token, user }, message: "User logged in" });
+				.json({ data: { user, ...token }, message: "User logged in" });
 		} catch (error) {
 			next(error);
 		}
