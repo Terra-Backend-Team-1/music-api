@@ -3,7 +3,7 @@ import { IUser } from "@/interfaces/user.interface";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-import { JWT_LIFETIME as number, JWT_SECRET } from "@/config";
+import { JWT_SECRET } from "@/config";
 import { IUserMethodsTypes, TokenDataType } from "@/interfaces/auth.interface";
 
 type UserModelType = Model<IUser, {}, IUserMethodsTypes>;

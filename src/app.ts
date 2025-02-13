@@ -1,4 +1,4 @@
-import { MONGO_URI, ORIGIN, PORT } from "./config";
+import { JWT_LIFETIME, JWT_SECRET, MONGO_URI, ORIGIN, PORT } from "./config";
 import express, { Application } from "express";
 import { Routes } from "@/interfaces/route.interface";
 import errorMiddleware from "@/middlewares/error.middleware";
@@ -18,7 +18,6 @@ class App {
 		this.port = (PORT || 8500) as number;
 		this.app = express();
 		this.mongoDBUri = MONGO_URI!;
-
 		this.connectDatabase();
 		this.initializeMiddlewares();
 		this.initializeRoutes(routes);
