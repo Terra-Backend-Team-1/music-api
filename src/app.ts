@@ -1,4 +1,4 @@
-import { CREDENTIALS, MONGO_URI, ORIGIN, PORT } from "./config";
+import { MONGO_URI, ORIGIN, PORT } from "./config";
 import express, { Application } from "express";
 import { Routes } from "@/interfaces/route.interface";
 import errorMiddleware from "@/middlewares/error.middleware";
@@ -18,6 +18,7 @@ class App {
 		this.port = (PORT || 8500) as number;
 		this.app = express();
 		this.mongoDBUri = MONGO_URI!;
+		console.log(this.mongoDBUri);
 
 		this.connectDatabase();
 		this.initializeMiddlewares();
