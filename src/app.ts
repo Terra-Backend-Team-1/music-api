@@ -8,7 +8,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import helmet from "helmet";
-import { console } from "inspector";
 
 class App {
   public port: number;
@@ -67,6 +66,5 @@ class App {
       console.log(`Server listening on port ${this.port}`);
     })
   };
-
 }
 export default App;
