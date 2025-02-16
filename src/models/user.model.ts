@@ -1,4 +1,4 @@
-import { Model, Schema, model } from "mongoose";
+import mongoose, { Model, Schema, model } from "mongoose";
 import { IUser } from "@/interfaces/user.interface";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
@@ -50,6 +50,29 @@ const userSchema: Schema<IUser, UserModelType, IUserMethodsTypes> = new Schema({
 		type: Boolean,
 		default: false,
 		required: false,
+	},
+	followers: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: "User",
+			required: false,
+		},
+	],
+	following: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: "User",
+			required: false,
+		},
+	],
+	profileImage: {
+		type: String,
+		default: "",
+		required: false,
+	},
+	dateOfBirth: {
+		type: Date,
+		required: [true, "Date of birth is required"],
 	},
 });
 

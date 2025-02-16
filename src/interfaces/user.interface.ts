@@ -9,4 +9,10 @@ export interface IUser extends Document<any> {
 	varificationToken?: string;
 	verificationTokenExpiresBy: number;
 	role: "admin" | "user";
+	following: IUser[] | string[];
+	followers: IUser[] | string[];
+	created_at: Date;
+	updated_at: Date;
+	dateOfBirth: Date;
+	profileImage: string;
 }

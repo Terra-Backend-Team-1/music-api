@@ -1,10 +1,16 @@
-import { z } from "zod";
+import { date, z } from "zod";
 
 // schema for signup validation
 export const userSignupValidationSchema = z.object({
 	email: z.string().email(),
 	firstName: z.string(),
 	lastName: z.string(),
+	dateOfBirth: z
+		.string()
+		.regex(
+			/^\d{4}-\d{2}-\d{2}$/,
+			"Date of birth must be in format: YYYY-MM-DD"
+		),
 	password: z
 		.string()
 		.regex(
