@@ -1,4 +1,4 @@
-import TrackController from "@/controllers/Track.controller";
+import TrackController from "@/controllers/track.controller";
 import { Routes } from "@/interfaces/route.interface";
 import authMiddleware from "@/middlewares/auth.middleware";
 import validationMiddleware from "@/middlewares/validation.middleware";
