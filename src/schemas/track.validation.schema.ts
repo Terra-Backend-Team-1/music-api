@@ -6,6 +6,7 @@ export const trackBodyValidationSchema = z.object({
 	duration: z.string(),
 	genre: z.string(),
 	album: z.string(),
+	stream_url: z.string(),
 });
 
 export type ITrackCreateData = z.infer<typeof trackBodyValidationSchema>;

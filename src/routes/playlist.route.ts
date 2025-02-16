@@ -63,6 +63,12 @@ class MusicRoute implements Routes {
 			],
 			this.playlistController.updatePlaylist
 		);
+		// get feautured playlist route
+		this.router.get(
+			this.path + "/featured-playlist",
+			[authMiddleware],
+			this.playlistController.getFeaturedPlaylists
+		);
 	};
 }
 

@@ -21,7 +21,7 @@ class TrackService {
 	};
 
 	// get track by id
-	public getSong = async (trackId: string) => {
+	public getTrack = async (trackId: string) => {
 		if (!trackId) {
 			throw new HTTPException(StatusCodes.BAD_REQUEST, "Provide Track ID");
 		}
@@ -34,7 +34,7 @@ class TrackService {
 	};
 
 	// get all tracks
-	public getAllSongs = async () => {
+	public getAllTracks = async () => {
 		const tracks = await this.trackModel.find();
 		if (!tracks) {
 			throw new HTTPException(StatusCodes.NOT_FOUND, "Tracks not found");
