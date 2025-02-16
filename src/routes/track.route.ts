@@ -22,6 +22,13 @@ class TrackRoutes implements Routes {
 			this.trackController.createTrack
 		);
 
+		// update a track
+		this.router.put(
+			this.path + "/update-track/:id",
+			[authMiddleware, validationMiddleware(trackBodyValidationSchema, "body")],
+			this.trackController.updateTrack
+		);
+
 		// get all tracks
 		this.router.get(
 			this.path + "/get-all-tracks",

@@ -67,6 +67,24 @@ class TrackController {
 			next(error);
 		}
 	};
+
+	// update track by id
+	public updateTrack = async (
+		req: RequestWithUser,
+		res: Response,
+		next: NextFunction
+	) => {
+		try {
+			const trackId = req.params.id;
+			const updatedTrack = await this.trackService.updateTrack(
+				req.body,
+				trackId
+			);
+			res.status(StatusCodes.OK).json({ data: updatedTrack });
+		} catch (error) {
+			next(error);
+		}
+	};
 }
 
 export default TrackController;
