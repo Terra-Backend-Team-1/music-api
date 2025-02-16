@@ -28,7 +28,7 @@ To install and run the Music API locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/music-api.git
+   git clone https://github.com/Terra-Backend-Team-1/music-api
    ```
 2. Navigate to the project directory:
    ```bash
@@ -38,7 +38,7 @@ To install and run the Music API locally, follow these steps:
    ```bash
    npm install
    ```
-4. Set up environment variables by creating a `.env` file based on the `.env.example` file.
+4. Set up environment variables by creating a `.env.development.local` file based on the `.env.example` file.
 5. Start the server:
    ```bash
    npm start
