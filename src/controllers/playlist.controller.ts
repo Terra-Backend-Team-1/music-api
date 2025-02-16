@@ -1,11 +1,12 @@
 import { RequestWithUser } from "@/interfaces/auth.interface";
 import { NextFunction, Response } from "express";
-import HTTPException from "@/exceptions/http.exception";
 import { StatusCodes } from "http-status-codes";
 import PlaylistService from "@/services/playlist.service";
+import { spotifyAPI } from "@/config/spotify";
 
 class PlaylistController {
 	public playlistService = new PlaylistService();
+	private spotify = spotifyAPI;
 
 	public createPlaylist = async (
 		req: RequestWithUser,
@@ -87,6 +88,20 @@ class PlaylistController {
 				req.body
 			);
 			res.status(StatusCodes.OK).json({ data: updatedPlaylist });
+		} catch (error) {
+			next(error);
+		}
+	};
+
+	// get featured playlists
+	public getFeaturedPlaylists = async (
+		req: RequestWithUser,
+		res: Response,
+		next: NextFunction
+	) => {
+		try {
+			const tracks = await this.spotify.searchTracks("Love");
+			res.status(StatusCodes.OK).json({ data: tracks });
 		} catch (error) {
 			next(error);
 		}

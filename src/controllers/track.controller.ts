@@ -2,8 +2,6 @@ import { StatusCodes } from "http-status-codes";
 import { Request, Response, NextFunction } from "express";
 import { SOUNDCLOUD_BASE_URL, SOUNDCLOUD_CLIENT_ID } from "@/config";
 import { RequestWithUser } from "@/interfaces/auth.interface";
-import HTTPException from "@/exceptions/http.exception";
-import axios from "axios";
 import TrackService from "@/services/track.service";
 
 class TrackController {
@@ -14,24 +12,43 @@ class TrackController {
 	// get track by id from soundcloud api and send it to the client
 	public getTrack = async (req: Request, res: Response, next: NextFunction) => {
 		try {
-			const query = req.query.q;
-			if (!query) {
-				throw new HTTPException(
-					StatusCodes.BAD_REQUEST,
-					"Provide a query value"
-				);
-			}
+			const track = await this.trackService.getTrack(req.params.id);
+			res.status(StatusCodes.OK).json({ data: track });
+		} catch (error) {
+			next(error);
+		}
+	};
 
-			const response = await axios.get(`${this.base_url}/tracks`, {
-				params: {
-					query: query,
-					client_id: this.client_id,
-					limit: 10,
-				},
-			});
-			res.status(StatusCodes.OK).json(response.data);
+	// get all tracks
+	public getAllTracks = async (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) => {
+		try {
+			res.status(StatusCodes.OK).json({ data: [] });
 		} catch (error) {
 			console.log(error);
+			next(error);
+		}
+	};
+
+	// get sample tracks
+	public getSampleTracks = async (
+		req: Request,
+		res: Response,
+		next: NextFunction
+	) => {
+		try {
+			// await setSpotifyAccessToken(spotifyAPI);
+			// const { body } = await spotifyAPI.search("love", ["playlist"]);
+			// const playlistId = body.playlists?.items[0].id;
+			// const { body: tracks } = await spotifyAPI.getPlaylistTracks(playlistId!);
+			// console.log(tracks.items);
+			res.status(StatusCodes.OK).json({
+				data: [],
+			});
+		} catch (error) {
 			next(error);
 		}
 	};
