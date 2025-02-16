@@ -62,6 +62,30 @@ class PlaylistService {
 		}
 		return deletedPlaylist;
 	};
+
+	// update a playlist by id
+	public updatePlaylist = async (
+		playlistId: string,
+		playlistData: IPlaylistData
+	) => {
+		if (isEmpty(playlistData)) {
+			throw new HTTPException(
+				StatusCodes.BAD_REQUEST,
+				"Provide playlist information"
+			);
+		}
+		const playlist = await this.playlistModel.findByIdAndUpdate(
+			playlistId,
+			playlistData,
+			{
+				new: true,
+			}
+		);
+		if (!playlist) {
+			throw new HTTPException(StatusCodes.NOT_FOUND, "Playlist does not exist");
+		}
+		return playlist;
+	};
 }
 
 export default PlaylistService;
