@@ -10,4 +10,5 @@ export interface ITrack extends Document {
 	stream_url: string;
 	yt_id: string;
 	created_at: Date;
+	image: string;
 }

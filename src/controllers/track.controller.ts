@@ -26,7 +26,8 @@ class TrackController {
 		next: NextFunction
 	) => {
 		try {
-			res.status(StatusCodes.OK).json({ data: [] });
+			const tracks = await this.trackService.getAllTracks();
+			res.status(StatusCodes.OK).json({ data: tracks });
 		} catch (error) {
 			console.log(error);
 			next(error);

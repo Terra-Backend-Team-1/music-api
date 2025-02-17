@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const trackBodyValidationSchema = z.object({
-	title: z.string().min(10, "Title must contain at least 10 characters"),
+	title: z.string().min(2, "Title must contain at least 2 characters"),
 	artist: z.string(),
 	duration: z.string(),
 	genre: z.string(),
