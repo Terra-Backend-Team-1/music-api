@@ -42,6 +42,7 @@ const playistSchema = new Schema<IPlaylist>({
 	},
 });
 
+playistSchema.index({ name: 1, creator: 1 }, { unique: true });
 const PlaylistModel = mongoose.model<IPlaylist, PlaylistModelType>(
 	"Playlist",
 	playistSchema

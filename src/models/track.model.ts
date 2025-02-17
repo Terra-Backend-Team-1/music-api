@@ -1,5 +1,6 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { ITrack } from "@/interfaces/track.interface";
+import { title } from "process";
 
 type TrackModelType = Model<ITrack>;
 
@@ -36,7 +37,12 @@ const trackSchema = new Schema<ITrack>({
 		type: Date,
 		defualt: Date.now(),
 	},
+	image: {
+		type: String,
+		default: "",
+	},
 });
+trackSchema.index({ title: 1, artist: 1, album: 1 }, { unique: true });
 
 const TrackModel = mongoose.model<ITrack, TrackModelType>("Track", trackSchema);
 
