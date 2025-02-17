@@ -1,6 +1,5 @@
 import { Routes } from "@/interfaces/route.interface";
 import { Router } from "express";
-//import SongController from "@/controllers/song.controller";
 import authMiddleware from "@/middlewares/auth.middleware";
 import PlaylistController from "@/controllers/playlist.controller";
 import validationMiddleware from "@/middlewares/validation.middleware";

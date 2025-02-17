@@ -28,13 +28,32 @@ class PlaylistService {
 		return newPlaylist;
 	};
 
-	public getAllPlaylists = async (userId: string) => {
-		const playlists = await this.playlistModel.find({ creator: userId });
+	public getAllPlaylists = async (
+		userId: string,
+		limit: number,
+		page: number
+	) => {
+		const playlists = await this.playlistModel
+			.find({ creator: userId })
+			.limit(limit)
+			.skip(limit * (page - 1));
 		if (!playlists) {
 			throw new HTTPException(
 				StatusCodes.NOT_FOUND,
 				"User Playlists not found"
 			);
+		}
+		return playlists;
+	};
+
+	// get feautured playlist
+	public getFeaturedPlaylists = async (limit: number, page: number) => {
+		const playlists = await this.playlistModel
+			.find({ isPublic: true })
+			.limit(limit)
+			.skip(limit * (page - 1));
+		if (!playlists) {
+			throw new HTTPException(StatusCodes.NOT_FOUND, "Playlists not found");
 		}
 		return playlists;
 	};
