@@ -34,11 +34,16 @@ class TrackService {
 	};
 
 	// get all tracks
-	public getAllTracks = async () => {
-		const tracks = await this.trackModel.find();
+	public getAllTracks = async (limit: number, page: number) => {
+		const tracks = await this.trackModel
+			.find()
+			.limit(limit)
+			.skip(limit * (page - 1));
+
 		if (!tracks) {
 			throw new HTTPException(StatusCodes.NOT_FOUND, "Tracks not found");
 		}
+
 		return tracks;
 	};
 

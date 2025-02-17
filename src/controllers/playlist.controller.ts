@@ -7,6 +7,8 @@ import { spotifyAPI } from "@/config/spotify";
 class PlaylistController {
 	public playlistService = new PlaylistService();
 	private spotify = spotifyAPI;
+	private defaultLimit = 10;
+	private defaultPage = 1;
 
 	public createPlaylist = async (
 		req: RequestWithUser,
@@ -45,15 +47,21 @@ class PlaylistController {
 		}
 	};
 
-	// Get all user playlists
+	// Get all user playlists with pagination
+
 	public getAllplaylists = async (
 		req: RequestWithUser,
 		res: Response,
 		next: NextFunction
 	) => {
 		try {
+			const { limit, page } = req.query;
 			const userId = req.user?.id;
-			const playlists = await this.playlistService.getAllPlaylists(userId);
+			const playlists = await this.playlistService.getAllPlaylists(
+				userId,
+				Number(limit || this.defaultLimit),
+				Number(page || this.defaultPage)
+			);
 			res.status(StatusCodes.OK).json({ data: playlists });
 		} catch (error) {
 			next(error);
@@ -100,8 +108,12 @@ class PlaylistController {
 		next: NextFunction
 	) => {
 		try {
-			const tracks = await this.spotify.searchTracks("Love");
-			res.status(StatusCodes.OK).json({ data: tracks });
+			const { limit, page } = req.query;
+			const playlists = await this.playlistService.getFeaturedPlaylists(
+				Number(limit || this.defaultLimit),
+				Number(page || this.defaultPage)
+			);
+			res.status(StatusCodes.OK).json({ data: playlists });
 		} catch (error) {
 			next(error);
 		}

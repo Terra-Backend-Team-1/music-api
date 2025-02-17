@@ -1,13 +1,12 @@
 import { StatusCodes } from "http-status-codes";
 import { Request, Response, NextFunction } from "express";
-import { SOUNDCLOUD_BASE_URL, SOUNDCLOUD_CLIENT_ID } from "@/config";
 import { RequestWithUser } from "@/interfaces/auth.interface";
 import TrackService from "@/services/track.service";
 
 class TrackController {
-	private client_id = SOUNDCLOUD_CLIENT_ID;
-	private base_url = SOUNDCLOUD_BASE_URL;
 	private trackService = new TrackService();
+	private defaultLimit = 10;
+	private defaultPage = 1;
 
 	// get track by id from soundcloud api and send it to the client
 	public getTrack = async (req: Request, res: Response, next: NextFunction) => {
@@ -19,14 +18,18 @@ class TrackController {
 		}
 	};
 
-	// get all tracks
+	// get all tracks with pagination
 	public getAllTracks = async (
 		req: Request,
 		res: Response,
 		next: NextFunction
 	) => {
 		try {
-			const tracks = await this.trackService.getAllTracks();
+			const { limit, page } = req.query;
+			const tracks = await this.trackService.getAllTracks(
+				Number(limit || this.defaultLimit),
+				Number(page || this.defaultPage)
+			);
 			res.status(StatusCodes.OK).json({ data: tracks });
 		} catch (error) {
 			console.log(error);
